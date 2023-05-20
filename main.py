@@ -36,13 +36,15 @@ function = """
 ╔═ Meoaw Nuker ( Ui by Meoaw ) ═════════════════════════════════════╗
 ║                                                                   ║
 ║                                                                   ║
-║            [ 1 ] Fast Nuker         [ 5 ] Fast leave              ║
+║            [ 1 ] Fast Nuker         [ 6 ] Fast leave              ║
 ║                                                                   ║
-║            [ 2 ] Multi Nuker        [ 6 ] Press Emoji             ║
+║            [ 2 ] Multi Nuker        [ 7 ] Press Emoji             ║
 ║                                                                   ║
-║            [ 3 ] Name Edit          [ 7 ] Press Button            ║
+║            [ 3 ] Name Edit          [ 8 ] Press Button            ║
 ║                                                                   ║   
-║            [ 4 ] Avatar Edit        [ 8 ] Press Select            ║  
+║            [ 4 ] Avatar Edit        [ 9 ] Press Select            ║
+║                                                                   ║
+║            [ 5 ] Get Id ( CH )                                    ║
 ║                                                                   ║
 ║                                                                   ║
 ╚═══════════════════════════════════════════════════════════════════╝
@@ -130,23 +132,9 @@ def main():
 
                 os.system('cls')
 
-                print(" ")
+                try:
 
-                Server_id = input("Server id > ") 
-
-                os.system('cls')
-
-                print(" ")
-
-                print("Get all channel...")
-
-                skip = input("Skip > ")
-
-                if skip == "Yes":
-
-                    i = 0
-
-                    while i < 100:
+                    while i < amount_x:
 
                         i += 1
 
@@ -156,53 +144,11 @@ def main():
 
                         os.system('cls')
 
-                elif skip == "No":
+                except:
 
-                    api = "v9"
+                    print(" ")
 
-                    token = gotji.main["token"]
-
-                    response = get(f"https://discord.com/api/{api}/guilds/{Server_id}/channels",headers={"authorization": token})
-
-                    i = 0
-
-                    with open('id.txt', 'a') as c:
-                            
-                        for channels in response.json():
-
-                            c.write(channels['id']+"\n")
-
-                            i += 1
-
-                        else:
-
-                            read_aid = i
-
-                            print(" ")
-
-                            os.system(f'cls & title Load: {read_aid} Channels !')
-
-                            print(Colorate.Horizontal(Colors.purple_to_blue, f"> ", 1) + "Load: " + Colorate.Horizontal(Colors.cyan_to_green, f"{read_aid} ", 1) + "Channel !")
-
-                            print(" ")
-
-                            sleep(0)
-
-                            i = 0
-
-                            while i < 100:
-
-                                meoaw_core = 0
-
-                                while meoaw_core < amount_x:
-
-                                    meoaw_core += 1
-
-                                    threading.submit(Multi_Attack)
-
-                            else:
-
-                                os.system('cls')
+                    print("Fail to start function 2 pls contract dev to fix :(")
 
             else:
 
@@ -244,11 +190,17 @@ def main():
 
                         if  choice == "5":
 
-                            leave()
+                            get_id()
 
                         else:
 
-                            pass
+                            if choice == "6":
+
+                                leave()
+
+                            else:
+
+                                pass
 
     else:
 
@@ -486,5 +438,43 @@ def leave():
         print("Exit done !")
 
         print(" ")
+
+def get_id():
+
+    os.system('cls')
+
+    print(" ")
+
+    print("Get id...")
+
+    print(" ")
+
+    sleep(0)
+
+    token = gotji.main["token"]
+
+    meoaw = requests.session()
+
+    api = "v9"
+
+    Server_id = gotji.main["sv_id"]
+
+    response = meoaw.get(f"https://discord.com/api/{api}/guilds/{Server_id}/channels",headers={"authorization": token})
+
+    with open('id.txt', 'a') as c:
+                            
+        for channels in response.json():
+
+            c.write(channels['id']+"\n")
+
+        else:
+
+            os.system('cls')
+
+            print(" ")
+
+            print("Done !")
+
+            print(" ")
  
 main()
